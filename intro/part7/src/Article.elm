@@ -1,23 +1,22 @@
-module Article
-    exposing
-        ( Article
-        , Full
-        , Preview
-        , author
-        , body
-        , favorite
-        , favoriteButton
-        , fetch
-        , fromPreview
-        , fullDecoder
-        , mapAuthor
-        , metadata
-        , previewDecoder
-        , slug
-        , unfavorite
-        , unfavoriteButton
-        , url
-        )
+module Article exposing
+    ( Article
+    , Full
+    , Preview
+    , author
+    , body
+    , favorite
+    , favoriteButton
+    , fetch
+    , fromPreview
+    , fullDecoder
+    , mapAuthor
+    , metadata
+    , previewDecoder
+    , slug
+    , unfavorite
+    , unfavoriteButton
+    , url
+    )
 
 {-| The interface to the Article data structure.
 
@@ -47,7 +46,7 @@ import Markdown
 import Profile exposing (Profile)
 import Time
 import Timestamp
-import Username as Username exposing (Username)
+import Username exposing (Username)
 import Viewer exposing (Viewer)
 import Viewer.Cred as Cred exposing (Cred)
 
@@ -197,11 +196,11 @@ metadataDecoder =
        as the order of the fields in `type alias Metadata` above. ☝️
     -}
     Decode.succeed Metadata
-        |> hardcoded "(needs decoding!)"
-        |> hardcoded "(needs decoding!)"
-        |> hardcoded []
-        |> hardcoded False
-        |> hardcoded 0
+        |> required "description" string
+        |> required "title" string
+        |> required "tagList" (list string)
+        |> required "favorited" bool
+        |> required "favoritesCount" int
         |> required "createdAt" Timestamp.iso8601Decoder
 
 
